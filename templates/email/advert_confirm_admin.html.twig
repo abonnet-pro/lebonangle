@@ -1,0 +1,16 @@
+{% apply inky_to_html|inline_css(source('@styles/foundation-emails.css')) %}
+<row>
+    <h1>Hello {{ admin.username }}</h1>
+</row>
+<row>
+    <p>A new advert has been posted by '{{ advert.author }}' ({{ advert.email }})</p>
+</row>
+<row>
+    <p>What do we do ?</p>
+</row>
+<row>
+    <button href="{{ url('admin_advert_show', {'id': advert.id}) }}">Show</button>
+    <button class="success" href="{{ url('admin_advert_transition', {'id': advert.id, 'to': 'publish'}) }}">publish</button>
+    <button class="alert" href="{{ url('admin_advert_transition', {'id': advert.id, 'to': 'reject'}) }}">reject</button>
+</row>
+{% endapply %}

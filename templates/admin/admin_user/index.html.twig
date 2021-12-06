@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AdminUser index{% endblock %}
+
+{% block body %}
+    <h1>AdminUser index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for flashMessage in app.session.flashbag.get('save_admin') %}
+
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('delete_admin_ok') %}
+
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('delete_admin_ko') %}
+
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+
+        {% endfor %}
+
+        {% for admin_user in admin_users %}
+            <tr>
+                <td>{{ admin_user.id }}</td>
+                <td>{{ admin_user.username }}</td>
+                <td>{{ admin_user.email }}</td>
+                <td>{{ admin_user.roles ? admin_user.roles|json_encode : '' }}</td>
+                <td>{{ admin_user.password }}</td>
+                <td>
+                    <a href="{{ path('admin_user_show', {'id': admin_user.id}) }}">show</a>
+                    <a href="{{ path('admin_user_edit', {'id': admin_user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_user_new') }}">Create new</a>
+{% endblock %}

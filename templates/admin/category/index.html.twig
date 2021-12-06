@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <div class="m-2">
+        <h1>Category index</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for flashMessage in app.session.flashbag.get('save_category') %}
+
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('delete_category_ok') %}
+
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+
+            {% endfor %}
+
+            {% for flashMessage in app.session.flashbag.get('delete_category_ko') %}
+
+                <div class="alert alert-danger">
+                    {{ flashMessage }}
+                </div>
+
+            {% endfor %}
+
+            {% for category in categories %}
+                <tr>
+                    <td class="text-center">{{ category.id }}</td>
+                    <td class="text-center">{{ category.name }}</td>
+                    <td class="text-center">
+                        <a href="{{ path('admin_category_show', {'id': category.id}) }}">show</a>
+                        <a href="{{ path('admin_category_edit', {'id': category.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation">
+            {{ knp_pagination_render(categories, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+        </div>
+
+        <a class="btn btn-primary" href="{{ path('admin_category_new') }}">Create new</a>
+    </div>
+{% endblock %}

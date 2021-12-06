@@ -1,0 +1,24 @@
+framework:
+    workflows:
+        advert:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'state'
+            supports:
+                - App\Entity\Advert
+            initial_marking: draft
+            places:
+                - draft
+                - rejected
+                - published
+            transitions:
+                publish:
+                    from: draft
+                    to: published
+                reject:
+                    from: draft
+                    to: rejected
+                unpublish:
+                    from: published
+                    to: rejected

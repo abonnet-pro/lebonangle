@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advert index{% endblock %}
+
+{% block body %}
+    <h1>Advert index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Title</th>
+                <th class="text-center">Category</th>
+                <th class="text-center">Content</th>
+                <th class="text-center">Pictures</th>
+                <th class="text-center">Author</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">CreatedAt</th>
+                <th class="text-center">PublishedAt</th>
+                <th class="text-center">State</th>
+                <th class="text-center">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for advert in adverts %}
+            <tr>
+                <td class="text-center">{{ advert.id }}</td>
+                <td class="text-center">{{ advert.title }}</td>
+                <td class="text-center">{{ advert.category }}</td>
+                <td class="text-center">{{ advert.content }}</td>
+                <td class="text-center">{{ advert.pictures.count }}</td>
+                <td class="text-center">{{ advert.author }}</td>
+                <td class="text-center">{{ advert.email }}</td>
+                <td class="text-center">{{ advert.price }}</td>
+                <td class="text-center">{{ advert.createdAt ? advert.createdAt|date('Y-m-d H:i:s') : '-' }}</td>
+                <td class="text-center">{{ advert.publishedAt ? advert.publishedAt|date('Y-m-d H:i:s') : '-' }}</td>
+                <td class="text-center">{{ advert.state }}</td>
+                <td class="text-center">
+                    <a href="{{ path('admin_advert_show', {'id': advert.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(adverts, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
+
+{% endblock %}

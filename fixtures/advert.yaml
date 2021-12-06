@@ -1,0 +1,18 @@
+App\Entity\Advert:
+  advert_1:
+    title: advert
+    content: content
+    author: author
+    email: email@email.fr
+    category: '@category_1'
+    price: <randomFloat(2, 1, 1000000)>
+    state: draft
+
+  advert_{2..100}:
+    title: <sentence(3)>
+    content: <text()>
+    author: <firstName()>
+    email: <email()>
+    category: '@category_*'
+    price: <randomFloat(2, 1, 1000000)>
+    state: draft

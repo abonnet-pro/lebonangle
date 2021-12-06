@@ -1,0 +1,10 @@
+App\Entity\AdminUser:
+  admin1:
+    username: admin
+    email: admin@admin.fr
+    plainPassword: 1234
+
+  admin2:
+    username: admin2
+    email: admin2@admin.fr
+    plainPassword: 1234

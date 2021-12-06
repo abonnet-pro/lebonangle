@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="text-center">
+        <h1>ADMINISTRATION</h1>
+    </div>
+    <div class="text-center" style="min-height: 80%;">
+        <a class="btn btn-primary" href="{{ path('admin_category_index') }}"> <i class="bi bi-bookmark"></i> Category</a>
+        <a class="btn btn-primary" href="{{ path('admin_advert_index') }}"><i class="bi bi-badge-ad"></i> Advert</a>
+        <a class="btn btn-primary" href="{{ path('admin_user_index') }}"><i class="bi bi-people"></i> Users</a>
+    </div>
+{% endblock %}

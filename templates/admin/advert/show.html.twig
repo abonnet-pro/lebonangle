@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advert{% endblock %}
+
+{% block body %}
+    <div class="m-3">
+        <h1>Advert</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ advert.id }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ advert.title }}</td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>{{ advert.category }}</td>
+                </tr>
+                <tr>
+                    <th>Content</th>
+                    <td>{{ advert.content }}</td>
+                </tr>
+                <tr>
+                    <th>Author</th>
+                    <td>{{ advert.author }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ advert.email }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ advert.price }}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{ advert.state }}</td>
+                </tr>
+                <tr>
+                    <th>CreatedAt</th>
+                    <td>{{ advert.createdAt ? advert.createdAt|date('Y-m-d H:i:s') : '-' }}</td>
+                </tr>
+                <tr>
+                    <th>PublishedAt</th>
+                    <td>{{ advert.publishedAt ? advert.publishedAt|date('Y-m-d H:i:s') : '-' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="mb-3">
+        {% for picture in pictures %}
+                <img src="{{ vich_uploader_asset(picture, 'file') | imagine_filter('my_thumb') }}" class="img-thumbnail" alt="Not found">
+        {% else %}
+            <div class="m-3">
+                No pictures
+            </div>
+        {% endfor %}
+        </div>
+
+        <div>
+            {% if workflow_can(advert, 'publish') %}
+                <a class="btn btn-success" href="{{ path('admin_advert_transition', {'id': advert.id, 'to': 'publish'}) }}">publish</a>
+            {% endif %}
+            {% if workflow_can(advert, 'reject') %}
+                <a class="btn btn-danger" href="{{ path('admin_advert_transition', {'id': advert.id, 'to': 'reject'}) }}">reject</a>
+            {% endif %}
+            {% if workflow_can(advert, 'unpublish') %}
+                <a class="btn btn-warning" href="{{ path('admin_advert_transition', {'id': advert.id, 'to': 'unpublish'}) }}">unpublish</a>
+            {% endif %}
+        </div>
+
+        <a class="btn btn-primary mt-3" href="{{ path('admin_advert_index') }}">back to list</a>
+    </div>
+{% endblock %}
